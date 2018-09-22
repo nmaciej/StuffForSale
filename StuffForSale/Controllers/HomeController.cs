@@ -18,6 +18,5 @@ namespace StuffForSale.Controllers
     {
       return View();
     }
-
   }
 }
