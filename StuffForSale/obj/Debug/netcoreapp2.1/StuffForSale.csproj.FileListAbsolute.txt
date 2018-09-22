@@ -24,3 +24,5 @@ C:\Users\Nowak\Coding\NET CodersLab\09_Projekt_Zaliczeniowy\StuffForSale\StuffFo
 C:\Users\Nowak\Coding\NET CodersLab\09_Projekt_Zaliczeniowy\StuffForSale\StuffForSale\obj\Debug\netcoreapp2.1\StuffForSale.dll
 C:\Users\Nowak\Coding\NET CodersLab\09_Projekt_Zaliczeniowy\StuffForSale\StuffForSale\obj\Debug\netcoreapp2.1\StuffForSale.pdb
 C:\Users\Nowak\Coding\NET CodersLab\09_Projekt_Zaliczeniowy\StuffForSale\StuffForSale\obj\Debug\netcoreapp2.1\StuffForSale.csproj.CopyComplete
+C:\Users\Nowak\Coding\NET CodersLab\09_Projekt_Zaliczeniowy\StuffForSale\StuffForSale\obj\Debug\netcoreapp2.1\Razor\Views\Home\LogIn.g.cshtml.cs
+C:\Users\Nowak\Coding\NET CodersLab\09_Projekt_Zaliczeniowy\StuffForSale\StuffForSale\obj\Debug\netcoreapp2.1\Razor\Views\Product\Add.g.cshtml.cs

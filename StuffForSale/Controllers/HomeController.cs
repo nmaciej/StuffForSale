@@ -13,5 +13,11 @@ namespace StuffForSale.Controllers
     {
       return View();
     }
+
+    public IActionResult LogIn()
+    {
+      return View();
+    }
+
   }
 }
