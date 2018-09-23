@@ -1,0 +1,48 @@
+﻿@using System.Globalization
+@model StuffForSale.Models.Product
+
+@{
+    ViewBag.Title = "title";
+    Layout = "_Layout";
+}
+
+<br />
+
+<form asp-controller="Product" asp-action="Add" asp-antiforgery="true" method="post">
+
+    <div class="form-group">
+        <input type="hidden" asp-for="ProductId" value="0" />
+    </div>
+
+    <div class="form-group">
+        <label asp-for="Name">Name</label>
+        <div>
+            <input asp-for="Name" type="text" />
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="Description">Description</label>
+        <div>
+            <input asp-for="Description" type="text" />
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="Price">Price</label>
+        <div lang="en-US">
+            <input asp-for="Price" type="number" min="0" step="any"/>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="DateAdded">Date Added</label>
+        <div>
+            <input asp-for="DateAdded" value="@DateTime.Now.ToString("G")" readonly="" type="text" />
+        </div>
+    </div>
+    <div>
+        <button type="submit" class="btn btn-primary">Submit</button>
+    </div>
+
+</form>
