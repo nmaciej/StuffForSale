@@ -29,11 +29,8 @@ namespace StuffForSale.Controllers
     {
       if (ModelState.IsValid)
       {
-        using (Context)
-        {
-          Context.Products.Add(newProduct);
-          Context.SaveChanges();
-        }
+        Context.Products.Add(newProduct);
+        Context.SaveChanges();
 
         return RedirectToAction("Index", "Home");
       }
@@ -41,8 +38,8 @@ namespace StuffForSale.Controllers
       return View(newProduct);
     }
 
-
-    public IActionResult GetAllProducts()
+    [HttpGet]
+    public IActionResult GetAll()
     {
       var list = Context.Products.ToList();
 
