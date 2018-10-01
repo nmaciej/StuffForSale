@@ -28,13 +28,12 @@ namespace StuffForSale
     {
       var connectionString = @"Data Source=DESKTOP-S3EJN7J\\SQLEXPRESS01;Initial Catalog=StuffForSale;Integrated Security=True";
       
-      services.AddDbContext<Context.Context>(builder => builder.UseSqlServer(connectionString));
+      services.AddDbContext<Contexts.ProgramDbContext>(builder => builder.UseSqlServer(connectionString),ServiceLifetime.Transient);
 
-      services.AddIdentity<IdentityUser, IdentityRole>()
-        .AddEntityFrameworkStores<Context.Context>();
-
+      services.AddDbContext<Contexts.ProgramIdentityDbContext>(builder => builder.UseSqlServer(connectionString));
+      services.AddIdentity<IdentityUser, IdentityRole>().AddEntityFrameworkStores<Contexts.ProgramIdentityDbContext>();
+      
       services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
-
     }
 
     // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

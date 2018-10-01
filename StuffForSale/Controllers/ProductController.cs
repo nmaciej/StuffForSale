@@ -9,11 +9,11 @@ namespace StuffForSale.Controllers
 {
   public class ProductController : Controller
   {
-    public Context.Context Context { get; }
+    public Contexts.ProgramDbContext _DbContext { get; }
 
-    public ProductController(Context.Context context)
+    public ProductController(Contexts.ProgramDbContext _context)
     {
-      Context = context;
+      _DbContext = _context;
     }
 
 
@@ -29,8 +29,8 @@ namespace StuffForSale.Controllers
     {
       if (ModelState.IsValid)
       {
-        Context.Products.Add(newProduct);
-        Context.SaveChanges();
+        _DbContext.Products.Add(newProduct);
+        _DbContext.SaveChanges();
 
         return RedirectToAction("Index", "Home");
       }
@@ -41,7 +41,7 @@ namespace StuffForSale.Controllers
     [HttpGet]
     public IActionResult GetAll()
     {
-      var list = Context.Products.ToList();
+      var list = _DbContext.Products.ToList();
 
       return Json(list);
     }
