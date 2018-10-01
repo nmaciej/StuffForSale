@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.HttpsPolicy;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
@@ -25,15 +26,21 @@ namespace StuffForSale
     // This method gets called by the runtime. Use this method to add services to the container.
     public void ConfigureServices(IServiceCollection services)
     {
+      var connectionString = @"Data Source=DESKTOP-S3EJN7J\\SQLEXPRESS01;Initial Catalog=StuffForSale;Integrated Security=True";
+      
+      services.AddDbContext<Context.Context>(builder => builder.UseSqlServer(connectionString));
+
+      services.AddIdentity<IdentityUser, IdentityRole>()
+        .AddEntityFrameworkStores<Context.Context>();
+
       services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
 
-      var connectionString = @"Data Source=DESKTOP-S3EJN7J\\SQLEXPRESS01;Initial Catalog=StuffForSale;Integrated Security=True";
-      services.AddDbContext<Context.Context>(builder => builder.UseSqlServer(connectionString),ServiceLifetime.Transient);
     }
 
     // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
     public void Configure(IApplicationBuilder app, IHostingEnvironment env)
     {
+      app.UseIdentity();
 
       app.UseHttpsRedirection();
       app.UseStaticFiles();

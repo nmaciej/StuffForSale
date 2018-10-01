@@ -2,12 +2,13 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using StuffForSale.Models;
 
 namespace StuffForSale.Context
 {
-  public class Context : DbContext
+  public class Context : IdentityDbContext
   {
     public DbSet<Product> Products { get; set; }
 
@@ -18,7 +19,7 @@ namespace StuffForSale.Context
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {
       base.OnConfiguring(optionsBuilder);
-      var cs = "Data Source=DESKTOP-S3EJN7J\\SQLEXPRESS01;Initial Catalog=StuffForSale;Integrated Security=True";
+      var cs = @"Data Source=DESKTOP-S3EJN7J\\SQLEXPRESS01;Initial Catalog=StuffForSale;Integrated Security=True";
       optionsBuilder.UseSqlServer(cs);
     }
   }
