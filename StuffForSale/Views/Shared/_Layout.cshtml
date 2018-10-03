@@ -6,7 +6,7 @@
     <title>@ViewData["Title"] - StuffForSale</title>
 
 
-
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/vue@2.5.17/dist/vue.js"></script>
@@ -28,23 +28,30 @@
 
                 <div class="collapse navbar-collapse">
                     <ul class="navbar-nav mr-auto">
+                        @if (User.Identity.IsAuthenticated)
+                        {
+                            <li>
+                                <p class="nav-link">Witaj @User.Identity.Name</p>
+                            </li>
 
-                        <li class="nav-item">
-                            <a class="nav-link" asp-controller="Auth" asp-action="LogIn">Log In</a>
-                        </li>
-                        
-                        <li class="nav-item">
-                            <a class="nav-link" asp-controller="Auth" asp-action="LogOut">Log Out</a>
-                        </li>
+                            <li class="nav-item">
+                                <a class="nav-link" asp-controller="Auth" asp-action="LogOut">Log Out</a>
+                            </li>
 
-                        <li class="nav-item">
-                            <a class="nav-link" asp-controller="Auth" asp-action="Register">Register</a>
-                        </li>
+                            <li class="nav-item">
+                                <a class="nav-link" asp-controller="UserProfile" asp-action="Index">My Profile</a>
+                            </li>
+                        }
+                        else
+                        {
+                            <li class="nav-item">
+                                <a class="nav-link" asp-controller="Auth" asp-action="Register">Register</a>
+                            </li>
 
-                        <li>
-                            <a class="nav-link" asp-controller="Product" asp-action="Add">Add Product</a>
-                        </li>
-
+                            <li class="nav-item">
+                                <a class="nav-link" asp-controller="Auth" asp-action="LogIn">Log In</a>
+                            </li>
+                        }
                     </ul>
                 </div>
 

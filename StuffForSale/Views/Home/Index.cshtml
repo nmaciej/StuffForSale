@@ -1,14 +1,37 @@
-﻿<script type="text/javascript" src="js/index_page.js"></script>
+﻿@*<script type="text/javascript" src="/js/index_page.js"></script>*@
+
+@model IEnumerable<StuffForSale.Models.Product>
 
 <table class='table table-stripped' id="firstTable">
     <thead>
         <tr>
-            <th v-for="col in columnsDisplay">{{col}}</th>
+            <th>Id</th>
+            <th>Name</th>
+            <th>Description</th>
+            <th>Tag</th>
+            <th>Price</th>
+            <th>Quantity</th>
+            <th>Date Added</th>
+            <th>Seller</th>
         </tr>
     </thead>
     <tbody>
-        <tr v-for="row in rows">
-            <td v-for="col in columns">{{row[col]}}</td>
+        @{
+            int i = 0;
+            foreach (var item in Model)
+            {
+                i = i + 1;
+        <tr>
+            <th>@i</th>
+            <th>@item.Name</th>
+            <th>@item.Description</th>
+            <th>@item.Tag.Name</th>
+            <th>@item.Price</th>
+            <th>@item.Quantity</th>
+            <th>@item.DateAdded</th>
+            <th>@User</th>
         </tr>
+            }
+        }
     </tbody>
 </table>
