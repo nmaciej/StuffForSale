@@ -12,6 +12,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using StuffForSale.Database;
 using StuffForSale.Models;
 
 namespace StuffForSale
@@ -34,6 +35,9 @@ namespace StuffForSale
       services.AddIdentity<User, IdentityRole>().AddEntityFrameworkStores<Database.EfcContext>();
 
       services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
+
+      services.AddMemoryCache();
+      services.AddSession();
     }
 
     // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -42,6 +46,7 @@ namespace StuffForSale
 
       app.UseHttpsRedirection();
       app.UseStaticFiles();
+      app.UseSession();
       app.UseCookiePolicy();
       app.UseAuthentication();
 
