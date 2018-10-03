@@ -12,6 +12,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using StuffForSale.Models;
 
 namespace StuffForSale
 {
@@ -29,10 +30,8 @@ namespace StuffForSale
     {
       var connectionString = @"Data Source=DESKTOP-S3EJN7J\\SQLEXPRESS01;Initial Catalog=StuffForSale;Integrated Security=True";
 
-      services.AddDbContext<Contexts.ProgramDbContext>(builder => builder.UseSqlServer(connectionString), ServiceLifetime.Transient);
-
-      services.AddDbContext<Contexts.ProgramIdentityDbContext>(builder => builder.UseSqlServer(connectionString));
-      services.AddIdentity<IdentityUser, IdentityRole>().AddEntityFrameworkStores<Contexts.ProgramIdentityDbContext>();
+      services.AddDbContext<Database.EfcContext>(builder => builder.UseSqlServer(connectionString), ServiceLifetime.Transient);
+      services.AddIdentity<User, IdentityRole>().AddEntityFrameworkStores<Database.EfcContext>();
 
       services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
     }

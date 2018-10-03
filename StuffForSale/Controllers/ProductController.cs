@@ -15,10 +15,10 @@ namespace StuffForSale.Controllers
 
   public class ProductController : Controller
   {
-    public Contexts.ProgramDbContext DbContext { get; }
-    protected UserManager<IdentityUser> UserManager { get; }
+    public Database.EfcContext DbContext { get; }
+    protected UserManager<User> UserManager { get; }
 
-    public ProductController(Contexts.ProgramDbContext context, UserManager<IdentityUser> userManager)
+    public ProductController(Database.EfcContext context, UserManager<User> userManager)
     {
       DbContext = context;
       UserManager = userManager;
@@ -32,7 +32,7 @@ namespace StuffForSale.Controllers
       var userId = UserManager.GetUserId(HttpContext.User);
       var tagDict = DbContext.Tags.ToDictionary(x => (int)x.TagId, x => x.Name.ToString());
 
-      return View(new ProductAdd(new Product(userId),tagDict ));
+      return View(new ProductAdd(new Product(userId),tagDict));
     }
 
     [Authorize]
@@ -61,6 +61,5 @@ namespace StuffForSale.Controllers
       }
       return Json(null);
     }
-
   }
 }

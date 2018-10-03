@@ -6,15 +6,16 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using StuffForSale.Models;
 
 namespace StuffForSale.Controllers
 {
   public class HomeController : Controller
   {
-    public Contexts.ProgramDbContext DbContext { get; }
-    protected UserManager<IdentityUser> UserManager { get; }
+    public Database.EfcContext DbContext { get; }
+    protected UserManager<User> UserManager { get; }
 
-    public HomeController(Contexts.ProgramDbContext context, UserManager<IdentityUser> userManager)
+    public HomeController(Database.EfcContext context, UserManager<User> userManager)
     {
       DbContext = context;
       UserManager = userManager;
@@ -23,13 +24,13 @@ namespace StuffForSale.Controllers
     public IActionResult Index()
     {
 
-      var productList = DbContext.Products.Include(x => x.Tag).ToList();
+      var productList = DbContext.Products.Include(x=>x.User).Include(y=>y.Tag).ToList();
       if (productList.Any())
       {
         return View(productList);
       }
 
-      return View(null);
+      return View(new List<Product>());
     }
 
     public IActionResult LogIn()

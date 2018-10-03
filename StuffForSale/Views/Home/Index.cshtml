@@ -11,8 +11,8 @@
             <th>Tag</th>
             <th>Price</th>
             <th>Quantity</th>
-            <th>Date Added</th>
             <th>Seller</th>
+            <th>Date Added</th>
         </tr>
     </thead>
     <tbody>
@@ -21,16 +21,16 @@
             foreach (var item in Model)
             {
                 i = i + 1;
-        <tr>
-            <th>@i</th>
-            <th>@item.Name</th>
-            <th>@item.Description</th>
-            <th>@item.Tag.Name</th>
-            <th>@item.Price</th>
-            <th>@item.Quantity</th>
-            <th>@item.DateAdded</th>
-            <th>@User</th>
-        </tr>
+                <tr>
+                    <th>@i</th>
+                    <th>@item.Name</th>
+                    <th>@item.Description</th>
+                    <th>@item.Tag.Name</th>
+                    <th>@item.Price</th>
+                    <th>@item.Quantity</th>
+                    <th>@item.User.UserName</th>
+                    <th>@item.DateAdded</th>
+                </tr>
             }
         }
     </tbody>

@@ -27,17 +27,21 @@ namespace StuffForSale.Models
     public int Quantity { get; set; }
 
     [Required]
-    public string UserId { get; set; }
-
-    [Required]
     public DateTime DateAdded { get; set; }
 
+    //Foreign keys
     [Required]
     public int TagId { get; set; }
+
+    [Required]
+    public string UserId { get; set; }
 
     //Relations
     [ForeignKey("TagId")]
     public Tag Tag { get; set; }
+
+    [ForeignKey("UserId")]
+    public User User { get; set; }
 
     //Constructors
 
