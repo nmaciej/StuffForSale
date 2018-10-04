@@ -45,7 +45,7 @@ namespace StuffForSale.Controllers
         DbContext.Products.Add(productViewModel.Product);
         DbContext.SaveChanges();
 
-        return RedirectToAction("Index", "Home");
+        return RedirectToAction("Index", "UserProfile");
       }
 
       return View(productViewModel);

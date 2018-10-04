@@ -43,6 +43,8 @@ namespace StuffForSale.Models
     [ForeignKey("UserId")]
     public User User { get; set; }
 
+    public ICollection<OrderDetail> OrderDetails { get; set; }
+
     //Constructors
 
     public Product(string userId)
