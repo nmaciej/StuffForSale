@@ -1,45 +1,58 @@
 ﻿@*<script type="text/javascript" src="/js/index_page.js"></script>*@
 
+@using Microsoft.AspNetCore.Http
 @model IEnumerable<StuffForSale.Models.Product>
 
-<table class='table table-hover' id="firstTable">
+<div class="container-fluid">
+    <table class='table table-hover' id="firstTable">
 
 
-    <thead class="table-dark">
-        <tr>
-            <th scope="col">Id</th>
-            <th scope="col">Name</th>
-            <th scope="col">Description</th>
-            <th scope="col">Tag</th>
-            <th scope="col">Price</th>
-            <th scope="col">Quantity</th>
-            <th scope="col">Seller</th>
-            <th scope="col">Date Added</th>
-            <th scope="col"></th>
-        </tr>
-    </thead>
-    <tbody>
-        @{
-            int i = 0;
-            foreach (var item in Model)
-            {
-                i = i + 1;
-                <tr>
-                    <th scope="row">@i</th>
-                    <td>@item.Name</td>
-                    <td>@item.Description</td>
-                    <td>@item.Tag.Name</td>
-                    <td>@item.Price</td>
-                    <td>@item.Quantity</td>
-                    <td>@item.User.UserName</td>
-                    <td>@item.DateAdded</td>
-                    <td>
-                        <form asp-route-id="@item.ProductId" asp-controller="Cart" asp-action="AddToCart" method="post">
-                            <button class="btn btn-outline-light" type="submit"><i class="fas fa-cart-plus fa-2x"></i></button>
-                        </form>
-                    </td>
-                </tr>
+        <thead class="table-dark col-11">
+            <tr>
+                <th  scope="col">Id</th>
+                <th  scope="col">Name</th>
+                <th  scope="col">Description</th>
+                <th  scope="col">Tag</th>
+                <th  scope="col">Price</th>
+                <th  scope="col">Quantity</th>
+                <th  scope="col">Seller</th>
+                <th  scope="col">Date Added</th>
+                <th  scope="col"></th>
+            </tr>
+        </thead>
+        <tbody>
+            @{
+                int i = 0;
+                foreach (var item in Model)
+                {
+                    i = i + 1;
+                    <tr>
+                        <th  scope="row">@i</th>
+                        <td >@item.Name</td>
+                        <td >@item.Description</td>
+                        <td >@item.Tag.Name</td>
+                        <td >@item.Price</td>
+                        <td >@item.Quantity</td>
+                        <td >@item.User.UserName</td>
+                        <td >@item.DateAdded</td>
+                        <td >
+                            @{
+                                if (item.User.UserName != User.Identity.Name)
+                                {
+                                    <form asp-route-id="@item.ProductId" asp-controller="Cart" asp-action="AddToCart" method="post">
+                                        <button class="btn btn-light" type="submit"><i class="fas fa-cart-plus fa-2x"></i></button>
+                                    </form>
+                                }
+                                else
+                                {
+                                    <button class="btn">Your item!</button>
+                                }
+                            }
+
+                        </td>
+                    </tr>
+                }
             }
-        }
-    </tbody>
-</table>
+        </tbody>
+    </table>
+</div>
