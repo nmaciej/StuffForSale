@@ -24,7 +24,7 @@ namespace StuffForSale.Controllers
     public IActionResult Index()
     {
 
-      var productList = DbContext.Products.Include(x=>x.User).Include(y=>y.Tag).ToList();
+      var productList = DbContext.Products.Where(x=>x.Quantity!=0).Include(x=>x.User).Include(y=>y.Tag).ToList();
       if (productList.Any())
       {
         return View(productList);
