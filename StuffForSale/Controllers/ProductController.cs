@@ -6,7 +6,10 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.ChangeTracking.Internal;
 using Microsoft.EntityFrameworkCore.Metadata.Internal;
+using Newtonsoft.Json;
 using StuffForSale.Models;
 using StuffForSale.ViewModels;
 
@@ -15,13 +18,13 @@ namespace StuffForSale.Controllers
 
   public class ProductController : Controller
   {
-    public Database.EfcContext DbContext { get; }
-    protected UserManager<User> UserManager { get; }
+    private readonly Database.EfcContext _dbContext;
+    private readonly UserManager<User> _userManager;
 
     public ProductController(Database.EfcContext context, UserManager<User> userManager)
     {
-      DbContext = context;
-      UserManager = userManager;
+      _dbContext = context;
+      _userManager = userManager;
     }
 
     [Authorize]
@@ -29,10 +32,10 @@ namespace StuffForSale.Controllers
     public IActionResult Add()
     {
       //Passing logged userId to View
-      var userId = UserManager.GetUserId(HttpContext.User);
-      var tagDict = DbContext.Tags.ToDictionary(x => (int)x.TagId, x => x.Name.ToString());
+      var userId = GetUserId();
+      var tagDict = _dbContext.Tags.ToDictionary(x => (int)x.TagId, x => x.Name.ToString());
 
-      return View(new ProductAdd(new Product(userId),tagDict));
+      return View(new ProductAdd(new Product(userId), tagDict));
     }
 
     [Authorize]
@@ -42,24 +45,69 @@ namespace StuffForSale.Controllers
     {
       if (ModelState.IsValid)
       {
-        DbContext.Products.Add(productViewModel.Product);
-        DbContext.SaveChanges();
+        _dbContext.Products.Add(productViewModel.Product);
+        _dbContext.SaveChanges();
 
         return RedirectToAction("Index", "UserProfile");
       }
-
       return View(productViewModel);
     }
 
-    [HttpGet]
+    [HttpPost]
+    public IActionResult AddItem(int id)
+    {
+      var product = _dbContext.Products.SingleOrDefault(x => x.ProductId == id);
+      if (product != null)
+      {
+        product.Quantity++;
+        _dbContext.SaveChanges();
+      }
+      return RedirectToAction("Index", "UserProfile");
+    }
+
+    [HttpPost]
+    public IActionResult RemoveItem(int id)
+    {
+      var product = _dbContext.Products.SingleOrDefault(x => x.ProductId == id);
+
+      if (product != null & product.Quantity >= 1)
+      {
+        product.Quantity--;
+        _dbContext.SaveChanges();
+      }
+      return RedirectToAction("Index", "UserProfile");
+    }
+
+    [HttpPost]
+    public IActionResult RemoveLine(int id)
+    {
+      var product = _dbContext.Products.SingleOrDefault(x => x.ProductId == id);
+      if (product != null)
+      {
+        product.Quantity = 0;
+        _dbContext.SaveChanges();
+      }
+      return RedirectToAction("Index", "UserProfile");
+    }
+
+    [HttpPost]
     public IActionResult GetAll()
     {
-      if (DbContext.Products.Any())
+      var productList = _dbContext.Products.Where(x => x.Quantity != 0).Include(x => x.User).Include(y => y.Tag).ToList();
+
+      if (productList.Any())
       {
-        var list = DbContext.Products.ToList();
-        return Json(list);
+        return Json(productList, new JsonSerializerSettings()
+        {
+          ReferenceLoopHandling = ReferenceLoopHandling.Ignore
+        });
       }
-      return Json(null);
+      return BadRequest();
+    }
+
+    private string GetUserId()
+    {
+      return _userManager.GetUserId(HttpContext.User);
     }
   }
 }

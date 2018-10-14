@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>@ViewData["Title"] - StuffForSale</title>
+    <title>@ViewData["Title"] - Flea Market</title>
 
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
@@ -25,7 +25,7 @@
                 <div class="container-fluid">
                     <div class="navbar-header">
                         <a class="navbar-brand" asp-controller="Home" asp-action="Index">
-                            <i class="fas fa-people-carry fa-2x" style="color: gray"> Stuff For Sale</i>
+                            <i class="fas fa-people-carry fa-2x" style="color: gray"> Flea Market</i>
                         </a>
                     </div>
 
@@ -80,7 +80,7 @@
     <div class="row">
         <div class="col-md-2"> </div>
         <div class="col-md-1"> </div>
-        <div class="col-md-7">            @RenderBody() </div>
+        <div id="partial" class="col-md-7">            @RenderBody() </div>
 
         <div class="col-md-2"> </div>
     </div>

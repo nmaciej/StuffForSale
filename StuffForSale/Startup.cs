@@ -34,7 +34,10 @@ namespace StuffForSale
       services.AddDbContext<Database.EfcContext>(builder => builder.UseSqlServer(connectionString), ServiceLifetime.Transient);
       services.AddIdentity<User, IdentityRole>().AddEntityFrameworkStores<Database.EfcContext>();
 
-      services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
+      services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1).AddJsonOptions(x => x.SerializerSettings.ContractResolver = new 
+        Newtonsoft.Json.Serialization.DefaultContractResolver());
+
+      //services.Add(HttpContextAccessor);
 
       services.AddMemoryCache();
       services.AddSession();
