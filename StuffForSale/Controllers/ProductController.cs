@@ -21,6 +21,8 @@ namespace StuffForSale.Controllers
     private readonly Database.EfcContext _dbContext;
     private readonly UserManager<User> _userManager;
 
+    public int PageSize = 5;
+
     public ProductController(Database.EfcContext context, UserManager<User> userManager)
     {
       _dbContext = context;
@@ -53,39 +55,83 @@ namespace StuffForSale.Controllers
       return View(productViewModel);
     }
 
+    [Authorize]
     [HttpPost]
     public IActionResult AddItem(int id)
     {
-      var product = _dbContext.Products.SingleOrDefault(x => x.ProductId == id);
-      if (product != null)
+      using (var transaction = _dbContext.Database.BeginTransaction())
       {
-        product.Quantity++;
-        _dbContext.SaveChanges();
+        try
+        {
+          _dbContext.Database.ExecuteSqlCommand("SELECT TOP 0 NULL FROM Products WITH (TABLOCKX)");
+
+          var product = _dbContext.Products.SingleOrDefault(x => x.ProductId == id);
+          if (product != null)
+          {
+            product.Quantity++;
+            _dbContext.SaveChanges();
+          }
+          transaction.Commit();
+        }
+        catch (Exception e)
+        {
+          transaction.Rollback();
+          return RedirectToAction("Index", "UserProfile");
+        }
       }
       return RedirectToAction("Index", "UserProfile");
     }
 
+    [Authorize]
     [HttpPost]
     public IActionResult RemoveItem(int id)
     {
-      var product = _dbContext.Products.SingleOrDefault(x => x.ProductId == id);
-
-      if (product != null & product.Quantity >= 1)
+      using (var transaction = _dbContext.Database.BeginTransaction())
       {
-        product.Quantity--;
-        _dbContext.SaveChanges();
+        try
+        {
+          _dbContext.Database.ExecuteSqlCommand("SELECT TOP 0 NULL FROM Products WITH (TABLOCKX)");
+
+          var product = _dbContext.Products.SingleOrDefault(x => x.ProductId == id);
+          if (product != null & product.Quantity >= 1)
+          {
+            product.Quantity--;
+            _dbContext.SaveChanges();
+          }
+          transaction.Commit();
+        }
+        catch (Exception e)
+        {
+          transaction.Rollback();
+          return RedirectToAction("Index", "UserProfile");
+        }
       }
       return RedirectToAction("Index", "UserProfile");
     }
 
+    [Authorize]
     [HttpPost]
     public IActionResult RemoveLine(int id)
     {
-      var product = _dbContext.Products.SingleOrDefault(x => x.ProductId == id);
-      if (product != null)
+      using (var transaction = _dbContext.Database.BeginTransaction())
       {
-        product.Quantity = 0;
-        _dbContext.SaveChanges();
+        try
+        {
+          _dbContext.Database.ExecuteSqlCommand("SELECT TOP 0 NULL FROM Products WITH (TABLOCKX)");
+
+          var product = _dbContext.Products.SingleOrDefault(x => x.ProductId == id);
+          if (product != null)
+          {
+            product.Quantity = 0;
+            _dbContext.SaveChanges();
+          }
+          transaction.Commit();
+        }
+        catch (Exception e)
+        {
+          transaction.Rollback();
+          return RedirectToAction("Index", "UserProfile");
+        }
       }
       return RedirectToAction("Index", "UserProfile");
     }
@@ -93,7 +139,7 @@ namespace StuffForSale.Controllers
     [HttpPost]
     public IActionResult GetAll()
     {
-      var productList = _dbContext.Products.Where(x => x.Quantity != 0).Include(x => x.User).Include(y => y.Tag).ToList();
+      var productList = _dbContext.Products.Where(x => x.Quantity != 0).OrderBy(x => x.Name).Include(x => x.User).Include(y => y.Tag).ToList();
 
       if (productList.Any())
       {
