@@ -1,0 +1,162 @@
+﻿@model StuffForSale.ViewModels.UserProfile
+
+@{
+    Layout = "_Layout";
+}
+
+<script type="text/javascript" src="js/UserProfile.js"></script>
+
+<div class="container-fluid">
+    <div class="row" style="margin-bottom: 20px; margin-top: 20px">
+        <div class="col-md-3">
+
+            <img src="https://via.placeholder.com/200x200" />
+        </div>
+        <div class="col-md-4">
+            <div>
+                <p>Login: @Model.User.UserName</p>
+                <p>Email: @Model.User.Email</p>
+            </div>
+
+            <a class="btn btn-success" asp-controller="Product" asp-action="Add">Add Product for Sale!</a>
+        </div>
+
+        <div class="col-md-3">
+            <div>
+                @*<div class="d-flex justify-content-start">Your items for sale</div>
+                    <div class="d-flex justify-content-start">Transactions in process</div>
+                    <div class="d-flex justify-content-start">Transactions history</div>*@
+            </div>
+        </div>
+        <div class="col-md-2"></div>
+
+    </div>
+</div>
+
+<blockquote class="blockquote">Your items for sell</blockquote>
+<table class='table table-sm table-hover'>
+    <thead class="table-dark">
+        <tr>
+            <th scope="row" class='align-middle text-center'>Id</th>
+            <th scope="row" class='align-middle text-center'>Name</th>
+            <th scope="row" class='align-middle text-center'>Description</th>
+            <th scope="row" class='align-middle text-center'>Tag</th>
+            <th scope="row" class='align-middle text-center'>Price</th>
+            <th scope="row" class='align-middle text-center'>Quantity</th>
+            <th scope="row" colspan="3" class='align-middle text-center'>Action</th>
+        </tr>
+    </thead>
+    <tbody>
+        @{
+            int i = 0;
+            foreach (var item in Model.MyProducts)
+            {
+                i = i + 1;
+                <tr>
+                    <th scope="row" class='align-middle text-center'>@i</th>
+                    <td class='align-middle'>@item.Name</td>
+                    <td class='align-middle'>@item.Description</td>
+                    <td class='align-middle'>@item.Tag.Name</td>
+                    <td class='align-middle text-center'>@item.Price</td>
+                    <td class='align-middle text-center'>@item.Quantity</td>
+
+                    <td>
+                        <form asp-route-id="@item.ProductId" asp-controller="Product" asp-action="AddItem" method="post">
+                            <button class='btn' type="submit"><i class="fas fa-plus-square"></i></button>
+                        </form>
+                    </td>
+                    <td>
+                        <form asp-route-id="@item.ProductId" asp-controller="Product" asp-action="RemoveItem" method="post">
+                            <button class='btn' type="submit"><i class="far fa-minus-square"></i></button>
+                        </form>
+                    </td>
+                    <td>
+                        <form asp-route-id="@item.ProductId" asp-controller="Product" asp-action="RemoveLine" method="post">
+                            <button class="btn" type="submit"><i class="fas fa-eraser"></i></button>
+                        </form>
+                    </td>
+
+                </tr>
+            }
+        }
+    </tbody>
+</table>
+
+
+
+<div id="ordered" class="d-none">
+    <blockquote class="blockquote">Items you orderd!</blockquote>
+</div>
+<div id="sold" class="d-none">
+    <blockquote class="blockquote">Items you sold!</blockquote>
+</div>
+
+<table id="table_form_1" class='table table-sm table-hover d-none'>
+    <thead class="table-dark">
+        <tr>
+            <th scope="row">Id</th>
+            <th class="who" scope="row"></th>
+            <th scope="row">Items</th>
+            <th scope="row">Price</th>
+            <th scope="row">Date</th>
+            <th scope="row">Status</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr class="data_tr">
+            <th class="id" scope="row"></th>
+            <td class="seller"></td>
+            <td class="quantity"></td>
+            <td class="price"></td>
+            <td class="date"></td>
+            <td class="status"><button class="btn"></button></td>
+        </tr>
+    </tbody>
+</table>
+
+@*<table id="ordered" class='table table-sm table-hover'>
+        <thead class="table-dark">
+        <tr>
+            <th scope="row">Id</th>
+            <th id="o_who" scope="row"></th>
+            <th scope="row">Items</th>
+            <th scope="row">Price</th>
+            <th scope="row">Date</th>
+            <th scope="row">Status</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr id="data_tr" class="d-none">
+            <th id="o_id" scope="row"></th>
+            <td id="o_seller"></td>
+            <td id="o_quantity"></td>
+            <td id="o_price"></td>
+            <td id="o_date"></td>
+            <td id="o_status"></td>
+        </tr>
+        </tbody>
+    </table>
+
+    <blockquote class="blockquote">Items you sold!</blockquote>
+    <table id="sold" class='table table-sm table-hover'>
+        <thead class="table-dark">
+        <tr>
+            <th scope="row">Id</th>
+            <th id="who" scope="row"></th>
+            <th scope="row">Items</th>
+            <th scope="row">Price</th>
+            <th scope="row">Date</th>
+            <th scope="row">Status</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr id="data_tr" class="d-none">
+            <th id="id" scope="row"></th>
+            <td id="seller"></td>
+            <td id="quantity"></td>
+            <td id="price"></td>
+            <td id="date"></td>
+            <td id="status"></td>
+        </tr>
+        </tbody>
+    </table>*@

@@ -1,0 +1,77 @@
+﻿@{
+    Layout = "_Layout";
+}
+
+@using Microsoft.AspNetCore.Http
+@using StuffForSale.Models
+@model StuffForSale.Models.Order
+@using Microsoft.AspNetCore.Identity
+
+    <br />
+
+    <form asp-controller="Order" asp-action="PrivateSummary" asp-antiforgery="true" method="post">
+
+        <div class="form-group">
+            <label asp-for="Date">Date</label>
+            <div>
+                <input asp-for="Date" value="@DateTime.Now" type="datetime" readonly="" />
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label asp-for="State">Active</label>
+            <div>
+                <input asp-for="State" value="Active" type="text" readonly="" />
+            </div>
+        </div>
+        
+        <div class="form-group">
+            <label asp-for="Name">Name</label>
+            <div>
+                <input asp-for="Name" type="text" />
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label asp-for="Surname">Surname</label>
+            <div>
+                <input asp-for="Surname" type="text" />
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label asp-for="Address">Address</label>
+            <div>
+                <input asp-for="Address" type="text" />
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label asp-for="PostCode">Post Code</label>
+            <div>
+                <input asp-for="PostCode" type="text" />
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label asp-for="City">City</label>
+            <div>
+                <input asp-for="City" type="text" />
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div>
+                <input asp-for="BuyerId" type="hidden" />
+            </div>
+        </div>
+
+        <div>
+            <button type="submit" class="btn btn-primary">Order Summary</button>
+        </div>
+
+        <div>
+            <div asp-validation-summary="All"></div>
+        </div>
+
+    </form>

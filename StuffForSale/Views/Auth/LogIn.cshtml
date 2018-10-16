@@ -1,0 +1,35 @@
+﻿@model StuffForSale.ViewModels.UserLogIn
+
+@{
+    Layout = "_Layout";
+}
+
+<form asp-controller="Auth" asp-action="LogIn" asp-antiforgery="true" method="post">
+    <div class="form-group">
+        <label asp-for="Login">Login</label>
+        <div>
+            <input asp-for="Login" type="text" />
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="Password">Password</label>
+        <div>
+            <input asp-for="Password" type="password" />
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="RememberMe">Remember Me</label>
+        <div>
+            <input asp-for="RememberMe" type="checkbox" checked=""/>
+        </div>
+    </div>
+
+    <div asp-validation-summary="All"></div>
+
+    <div>
+        <button type="submit" class="btn btn-success">Log In</button>
+    </div>
+
+</form>

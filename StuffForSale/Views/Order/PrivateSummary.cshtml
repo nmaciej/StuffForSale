@@ -1,0 +1,139 @@
+﻿@using StuffForSale.ViewModels
+@model StuffForSale.ViewModels.OrderSummary
+
+@{
+    Layout = "_Layout";
+}
+
+<h2>Order Summary View</h2>
+
+
+<form asp-controller="Order" asp-action="PrivateConfirmed" asp-antiforgery="true" method="post">
+
+    @{
+        for (int i = 0; i < Model.OrderDetailsSummaryList.Count; i++)
+        {
+            <input asp-for="OrderDetailsSummaryList[i].Price" type="hidden"/>
+            <input asp-for="OrderDetailsSummaryList[i].Quantity" type="hidden"/>
+            <input asp-for="OrderDetailsSummaryList[i].ProductId" type="hidden"/>
+            <input asp-for="OrderDetailsSummaryList[i].ProductName" type="hidden"/>
+            <input asp-for="OrderDetailsSummaryList[i].SellerId" type="hidden"/>
+            <input asp-for="OrderDetailsSummaryList[i].SellerName" type="hidden"/>
+        }
+    }
+
+    <div class="container">
+        <div class="row">
+            <div class="col-md-4">
+
+                <div class="form-group">
+                    <div>
+                        <input asp-for="Order.Date" value="@DateTime.Now" type="hidden" readonly="" />
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <div>
+                        <input asp-for="Order.State" value="true" type="hidden" readonly="" />
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label asp-for="Order.Name">Name</label>
+                    <div>
+                        <input asp-for="Order.Name" type="text" readonly="" />
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label asp-for="Order.Surname">Surname</label>
+                    <div>
+                        <input asp-for="Order.Surname" type="text" readonly="" />
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label asp-for="Order.Address">Address</label>
+                    <div>
+                        <input asp-for="Order.Address" type="text" readonly="" />
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label asp-for="Order.PostCode">Post Code</label>
+                    <div>
+                        <input asp-for="Order.PostCode" type="text" readonly="" />
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label asp-for="Order.City">City</label>
+                    <div>
+                        <input asp-for="Order.City" type="text" readonly="" />
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <div>
+                        <input asp-for="Order.BuyerId" type="hidden" />
+                    </div>
+                </div>
+
+                <div>
+                    <button type="submit" class="btn btn-primary">Confirm order!</button>
+                </div>
+            </div>
+            <div class="col-md-4">
+
+                @{
+                    var sellers = Model.OrderDetailsSummaryList.GroupBy(x => x.SellerId).Select(y => y.First());
+
+                    foreach (var s in sellers)
+                    {
+                        <blockquote class="blockquote">Seller: @s.SellerName</blockquote>
+                        <table class='table table-sm table-hover'>
+                            <thead class="table-dark">
+                                <tr>
+                                    <th scope="row">Product</th>
+                                    <th scope="row">Price</th>
+                                    <th scope="row">Quantity</th>
+                                    <th scope="row">Total</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @{
+                                    var list = Model.OrderDetailsSummaryList.Where(x => x.SellerId == s.SellerId);
+
+                                    foreach (var item in list)
+                                    {
+
+                                        <tr>
+                                            <td>@item.ProductName</td>
+                                            <td>@item.Price</td>
+                                            <td>@item.Quantity</td>
+                                            @{ var a = item.Price * item.Quantity;}
+                                            <td>@a</td>
+                                        </tr>
+                                    }
+                                    <tr>
+                                        <td colspan="3">Summary:</td>
+                                        <td>@list.Sum(x => x.Quantity * x.Price)</td>
+                                    </tr>
+                                }
+
+
+                            </tbody>
+
+                        </table>
+                    }
+                }
+
+            </div>
+            <div class="col-md-4"></div>
+        </div>
+    </div>
+</form>
+
+
+
+
