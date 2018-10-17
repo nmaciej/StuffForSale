@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using StuffForSale.Models;
 using StuffForSale.ViewModels;
+using Microsoft.Extensions.Configuration;
 
 namespace StuffForSale.Controllers
 {
@@ -14,24 +15,33 @@ namespace StuffForSale.Controllers
   {
     protected UserManager<User> UserManager { get; }
     protected SignInManager<User> SignInManager { get; }
-    protected RoleManager<User> RoleManager { get; }
-    public AuthController(UserManager<User> userManager, SignInManager<User> signInManager, RoleManager<User> roleManager)
+    protected RoleManager<IdentityRole> RoleManager { get; }
+    protected IConfiguration Configuration { get; set; }
+    public AuthController(UserManager<User> userManager, SignInManager<User> signInManager, RoleManager<IdentityRole> roleManager, IConfiguration config)
     {
       UserManager = userManager;
       SignInManager = signInManager;
       RoleManager = roleManager;
+      Configuration = config;
     }
 
     [HttpGet]
-    public IActionResult Register()
+    public async Task<IActionResult> Register()
     {
+      if (!UserManager.Users.Any())
+      {
+        await RoleManager.CreateAsync(new IdentityRole("Admin"));
+        await RoleManager.CreateAsync(new IdentityRole("User"));
+
+        var user = new User() { UserName = Configuration["AdminLogin"], Email = Configuration["AdminEmail"] };
+        var result = await UserManager.CreateAsync(user, Configuration["AdminPassword"]);
+
+        if (result.Succeeded)
+        {
+          await UserManager.AddToRolesAsync(user, new List<string> { "Admin" });
+        }
+      }
       return View();
-    }
-
-    [HttpGet]
-    public IActionResult Test()
-    {
-      return Content("test");
     }
 
     [HttpPost]
@@ -54,7 +64,7 @@ namespace StuffForSale.Controllers
         var result = await UserManager.CreateAsync(user, registerViewModel.Password);
         if (result.Succeeded)
         {
-
+          await UserManager.AddToRolesAsync(user, new List<string> { "User" });
 
           var login = await SignInManager.PasswordSignInAsync(registerViewModel.Login,
             registerViewModel.Password, false, false);

@@ -5,89 +5,58 @@
 
 <script type="text/javascript" src="js/Home.js"></script>
 
-@*<div class="container-fluid">
-        <table class='table table-hover' id="firstTable">
+<div class="container">
+    <br />
+    <div class="row">
+        <h2>Select tag to filter results!</h2>
+        <div id='badge_layout' class="d-none">
+            <button type="button" class="btn btn-outline-primary">Primary</button>
+        </div>
+
+        <div id="tags" class="col-md-12">
+
+        </div>
+    </div>
+    <br />
+    <div class="row">
+        <div id="index_table"></div>
+
+        <table id="table_form_1" class='table table-hover d-none'>
             <thead class="table-dark col-11">
                 <tr>
-                    <th scope="col">Id</th>
-                    <th scope="col">Name</th>
-                    <th scope="col">Description</th>
-                    <th scope="col">Tag</th>
-                    <th scope="col">Price</th>
-                    <th scope="col">Quantity</th>
-                    <th scope="col">Seller</th>
-                    <th scope="col">Date Added</th>
-                    <th scope="col"></th>
+                    <th scope="col" class='align-middle text-center'>Id</th>
+                    <th scope="col" class='align-middle text-center'>Picture</th>
+                    <th scope="col" class='align-middle text-center'>Name</th>
+                    <th scope="col" class='align-middle text-center'>Description</th>
+                    <th scope="col" class='align-middle text-center'>Tag</th>
+                    <th scope="col" class='align-middle text-center'>Price</th>
+                    <th scope="col" class='align-middle text-center'>Quantity</th>
+                    <th scope="col" class='align-middle text-center'>Seller</th>
+                    <th scope="col" class='align-middle text-center'>Date Added</th>
+                    <th scope="col" class='align-middle text-center'></th>
                 </tr>
             </thead>
             <tbody>
-                @{
-                    int i = 0;
-                    foreach (var item in Model)
-                    {
-                        i = i + 1;
-                        <tr>
-                            <th scope="row">@i</th>
-                            <td>@item.Name</td>
-                            <td>@item.Description</td>
-                            <td>@item.Tag.Name</td>
-                            <td>@item.Price</td>
-                            <td>@item.Quantity</td>
-                            <td>@item.User.UserName</td>
-                            <td>@item.DateAdded</td>
-                            <td>
-                                @{
-                                    if (item.User.UserName != User.Identity.Name)
-                                    {
-                                        <form asp-route-id="@item.ProductId" asp-controller="Cart" asp-action="AddToCart" method="post">
-                                            <button class="btn btn-light" type="submit"><i class="fas fa-cart-plus fa-2x"></i></button>
-                                        </form>
-                                    }
-                                    else
-                                    {
-                                        <button class="btn">Your item!</button>
-                                    }
-                                }
-                            </td>
-                        </tr>
-                    }
-                }
+                <tr class="data_tr d-none">
+                    <th scope="row" class="id align-middle"></th>
+                    <td><img src="images/logo.jpg" style="width:100px;height:100px;" class="rounded" /></td>
+                    <td class="name align-middle"></td>
+                    <td class="description align-middle"></td>
+                    <td class="tag align-middle"></td>
+                    <td class="price align-middle"></td>
+                    <td class="quantity align-middle text-center"></td>
+                    <td class="seller align-middle"></td>
+                    <td class="date align-middle"></td>
+                    <td class="b align-middle">
+                        <button class="btn"></button>
+                        @*Add to cart / your item*@
+                    </td>
+                </tr>
             </tbody>
         </table>
-    </div>*@
 
-<div id="index_table"></div>
+    </div>
 
-<table id="table_form_1" class='table table-hover d-none'>
-    <thead class="table-dark col-11">
-        <tr>
-            <th scope="col" class='align-middle text-center'>Id</th>
-            <th scope="col" class='align-middle text-center'>Picture</th>
-            <th scope="col" class='align-middle text-center'>Name</th>
-            <th scope="col" class='align-middle text-center'>Description</th>
-            <th scope="col" class='align-middle text-center'>Tag</th>
-            <th scope="col" class='align-middle text-center'>Price</th>
-            <th scope="col" class='align-middle text-center'>Quantity</th>
-            <th scope="col" class='align-middle text-center'>Seller</th>
-            <th scope="col" class='align-middle text-center'>Date Added</th>
-            <th scope="col" class='align-middle text-center'></th>
-        </tr>
-    </thead>
-    <tbody>
-        <tr class="data_tr d-none">
-            <th scope="row" class="id align-middle"></th>
-            <td><img src="images/logo.jpg" style="width:100px;height:100px;" class="rounded"/></td>
-            <td class="name align-middle"></td>
-            <td class="description align-middle"></td>
-            <td class="tag align-middle"></td>
-            <td class="price align-middle"></td>
-            <td class="quantity align-middle text-center"></td>
-            <td class="seller align-middle"></td>
-            <td class="date align-middle"></td>
-            <td class="b align-middle">
-                <button class="btn"></button>
-                @*Add to cart / your item*@
-            </td>
-        </tr>
-    </tbody>
-</table>
+</div>
+
+

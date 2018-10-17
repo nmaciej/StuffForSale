@@ -1,21 +1,22 @@
 ﻿$(document).ready(function () {
 
-    loadOrders(true);
-    loadOrders(false);
+    loadOrders(null);
+
+    loadTagBadges();
 
     var userName;
     $.ajax({
         url: "https://localhost:5001/UserProfile/GetUserName/",
         data: {},
         type: "POST"
-    }).done(function(result) {
+    }).done(function (result) {
         userName = result;
     });
 
-    function loadOrders(buyer) {
+    function loadOrders(tag) {
         $.ajax({
             url: "https://localhost:5001/Product/GetAll/",
-            data: {},
+            data: { tag: tag },
             type: "POST",
             dataType: "json"
         }).done(function (result) {
@@ -58,7 +59,7 @@
                         buttonRec.find('button').append("<i class=\"far fa-times-circle fa-2x\"></i>");
                         buttonRec.find('button').addClass('btn-warning');
 
-                        buttonRec.click(function() {
+                        buttonRec.click(function () {
                             bootbox.alert("This is your product!");
                         });
 
@@ -68,12 +69,12 @@
 
                         console.log($(this).parent().attr('data'));
 
-                        buttonRec.click(function() {
+                        buttonRec.click(function () {
                             $.ajax({
                                 url: "https://localhost:5001/Cart/AddToCart/",
                                 data: { id: $(this).parent().attr('data') },
                                 type: "POST"
-                            }).done(function() {
+                            }).done(function () {
                                 bootbox.confirm({
                                     message: "Dodano produkt do koszyka!",
                                     buttons: {
@@ -86,14 +87,14 @@
                                             className: 'btn-success'
                                         }
                                     },
-                                    callback: function(result) {
+                                    callback: function (result) {
                                         if (result) {
 
                                             $.ajax({
                                                 url: "https://localhost:5001/Cart/IndexPartial/",
                                                 data: {},
                                                 type: "GET"
-                                            }).done(function(result) {
+                                            }).done(function (result) {
 
                                                 $('#partial').html(result);
 
@@ -102,7 +103,7 @@
                                         }
                                     }
                                 });
-                            }).fail(function(xhr, status, err) {
+                            }).fail(function (xhr, status, err) {
 
                                 bootbox.alert("Quantity not sufficient!");
 
@@ -110,7 +111,8 @@
                         });
                     }
                 } else {
-                    buttonRec.remove();}
+                    buttonRec.remove();
+                }
 
                 tbody.append(record);
             }
@@ -119,5 +121,44 @@
         }).fail(function (xhr, status, err) {
 
         });
+    }
+
+    function loadTagBadges() {
+
+
+        $.ajax({
+            url: "https://localhost:5001/Admin/GetTags",
+            data: {},
+            type: "POST"
+        }).done(function (result) {
+
+            var badLay = $('#badge_layout').clone();
+            badLay.removeAttr('id');
+            badLay.removeClass('d-none');
+            badLay.addClass('d-inline');
+
+            var tagsDiv = $('#tags');
+
+            for (var i = 0; i < result.length; i++) {
+                var badTmp = badLay.clone();
+                badTmp.find('button').text(result[i].Name);
+
+                badTmp.click(function () {
+
+                    var tag = $.trim($(this).text());
+                    console.log(tag);
+
+                    loadOrders(tag);
+
+                });
+
+                tagsDiv.append(badTmp);
+            }
+
+        }).fail(function (xhr, status, err) {
+            alert("Error!");
+        });
+
+
     }
 });

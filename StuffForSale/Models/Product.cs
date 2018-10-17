@@ -21,7 +21,7 @@ namespace StuffForSale.Models
     public string Description { get; set; }
 
     [Required]
-    public double Price { get; set; }
+    public decimal Price { get; set; }
 
     [Required]
     public int Quantity { get; set; }
@@ -52,7 +52,7 @@ namespace StuffForSale.Models
       UserId = userId;
     }
 
-    public Product(int productId, string name, string description, double price, int quantity, string userId, DateTime dateAdded)
+    public Product(int productId, string name, string description, decimal price, int quantity, string userId, DateTime dateAdded)
     {
       ProductId = productId;
       Name = name;

@@ -76,7 +76,7 @@ namespace StuffForSale.Models
       CartLinesCollection.RemoveAll(d => d.Product.ProductId == deleteItem.ProductId);
     }
 
-    public virtual double TotalValues()
+    public virtual decimal TotalValues()
     {
       return CartLinesCollection.Sum(i => i.Quantity * i.Product.Price);
     }
@@ -102,7 +102,7 @@ namespace StuffForSale.Models
     public Product Product { get; set; }
     public int Quantity { get; set; }
 
-    public double GetPrice()
+    public decimal GetPrice()
     {
       return Quantity * Product.Price;
     }

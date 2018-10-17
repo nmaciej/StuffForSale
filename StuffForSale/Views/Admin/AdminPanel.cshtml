@@ -1,0 +1,54 @@
+﻿<script type="text/javascript" src="https://localhost:5001/js/AdminPanel.js"></script>
+
+@model object
+
+@{
+    ViewBag.Title = "title";
+    Layout = "_Layout";
+}
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-12" align="center">
+            <h2>Admin Panel</h2>
+        </div>
+    </div>
+    <div class="row">
+
+        <div class="col-md-6" align="center">
+            <h4>Current Tags</h4>
+            
+            <div id="tags_table_location"></div>
+
+            <table id="tags_table" class='table table-hover d-none'>
+                <thead class="table col-11">
+                <tr>
+                    <th scope="col" class='align-middle text-center'>Id</th>
+                    <th scope="col" class='align-middle text-center'>Name</th>
+                    <th scope="col" class='align-middle text-center'>Products</th>
+                    <th scope="col" class='align-middle text-center'>Action</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr class="data_tr d-none">
+                    <th scope="row" class="id align-middle"></th>
+                    <td class="name "></td>
+                    <td class="products align-middle"></td>
+                    <td class="b align-middle"><button class="btn"></button></td>
+                </tr>
+                </tbody>
+            </table>
+
+        </div>
+        <div class="col-md-6" align="center">
+            <h4>Add Tag</h4>
+                <div class="form-group">
+                    <div>
+                        <input type="text" id='input'/>
+                        <button id='btn' class="btn btn-outline-success">Add</button>
+                    </div>
+                </div>
+        </div>
+
+    </div>
+</div>

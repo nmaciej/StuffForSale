@@ -34,3 +34,4 @@ C:\Users\Nowak\Coding\NET CodersLab\09_Projekt_Zaliczeniowy\StuffForSale\StuffFo
 C:\Users\Nowak\Coding\NET CodersLab\09_Projekt_Zaliczeniowy\StuffForSale\StuffForSale\obj\Debug\netcoreapp2.1\Razor\Views\Order\Checkout.g.cshtml.cs
 C:\Users\Nowak\Coding\NET CodersLab\09_Projekt_Zaliczeniowy\StuffForSale\StuffForSale\obj\Debug\netcoreapp2.1\Razor\Views\Order\PrivateSummary.g.cshtml.cs
 C:\Users\Nowak\Coding\NET CodersLab\09_Projekt_Zaliczeniowy\StuffForSale\StuffForSale\obj\Debug\netcoreapp2.1\Razor\Views\Cart\IndexPartial.g.cshtml.cs
+C:\Users\Nowak\Coding\NET CodersLab\09_Projekt_Zaliczeniowy\StuffForSale\StuffForSale\obj\Debug\netcoreapp2.1\Razor\Views\Admin\AdminPanel.g.cshtml.cs

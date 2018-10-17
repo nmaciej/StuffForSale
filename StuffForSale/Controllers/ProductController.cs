@@ -137,18 +137,25 @@ namespace StuffForSale.Controllers
     }
 
     [HttpPost]
-    public IActionResult GetAll()
+    public IActionResult GetAll(string tag = null)
     {
-      var productList = _dbContext.Products.Where(x => x.Quantity != 0).OrderBy(x => x.Name).Include(x => x.User).Include(y => y.Tag).ToList();
-
-      if (productList.Any())
+      var productList = new List<Product>();
+      if (tag == null)
       {
-        return Json(productList, new JsonSerializerSettings()
-        {
-          ReferenceLoopHandling = ReferenceLoopHandling.Ignore
-        });
+        productList = _dbContext.Products.Where(x => x.Quantity != 0).OrderBy(x => x.Name).Include(x => x.User).Include(y => y.Tag).ToList();
       }
-      return BadRequest();
+      else
+      {
+        var tmp = _dbContext.Products.Where(x => x.Quantity != 0).OrderBy(x => x.Name).Include(x => x.User).Include(y => y.Tag).ToList();
+        productList = tmp.Where(x => x.Tag.Name == tag).ToList();
+      }
+
+
+      return Json(productList, new JsonSerializerSettings()
+      {
+        ReferenceLoopHandling = ReferenceLoopHandling.Ignore
+      });
+
     }
 
     private string GetUserId()

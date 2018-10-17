@@ -38,6 +38,15 @@
                                 <p class="nav-link">Hi @User.Identity.Name !</p>
                             </li>
 
+                            if (User.IsInRole("Admin"))
+                            {
+                                <li class="nav-item">
+                                    <a class="nav-link" asp-controller="Admin" asp-action="AdminPanel" title="AdminPanel">
+                                        <i class="fas fa-unlock-alt fa-2x"></i>
+                                    </a>
+                                </li>
+                            }
+
                             <li class="nav-item">
                                 <a class="nav-link" asp-controller="UserProfile" asp-action="Index" title="Profile">
                                     <i class="fas fa-user-alt fa-2x"></i>
@@ -59,13 +68,7 @@
                         else
                         {
                             <li class="nav-item">
-                                <a class="nav-link" asp-controller="Auth" asp-action="Test" title="SignUp">
-                                    test
-                                </a>
-                            </li>
-
-                            <li class="nav-item">
-                                <a class="nav-link" asp-controller="Auth" asp-action="Register" title="SignUp">
+                                <a class="nav-link" asp-controller="Auth" asp-action="Register" title="Register">
                                     <i class="fas fa-user-plus fa-2x"></i>
                                 </a>
                             </li>
