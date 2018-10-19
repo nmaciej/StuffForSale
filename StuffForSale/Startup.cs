@@ -31,7 +31,7 @@ namespace StuffForSale
     {
       var connectionString = @"Data Source=DESKTOP-S3EJN7J\\SQLEXPRESS01;Initial Catalog=StuffForSale;Integrated Security=True";
 
-      services.AddDbContext<Database.EfcContext>(builder => builder.UseSqlServer(connectionString), ServiceLifetime.Transient);
+      services.AddDbContext<EfcContext>(builder => builder.UseSqlServer(connectionString), ServiceLifetime.Scoped);
       services.AddIdentity<User, IdentityRole>().AddEntityFrameworkStores<Database.EfcContext>();
 
       services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1).AddJsonOptions(x => x.SerializerSettings.ContractResolver = new 
@@ -54,6 +54,8 @@ namespace StuffForSale
       app.UseAuthentication();
 
       app.UseMvcWithDefaultRoute();
+
+      //SeedData.EnsurePopulated(app);
     }
   }
 }

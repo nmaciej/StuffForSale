@@ -97,7 +97,7 @@ using StuffForSale;
             WriteLiteral("</p>\r\n            </div>\r\n\r\n            ");
             EndContext();
             BeginContext(547, 94, false);
-            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("a", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "2cec8a370aab4e7c820a88ca778baace", async() => {
+            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("a", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "e6baa93eca3b423e8abf1b976dab3a11", async() => {
                 BeginContext(616, 21, true);
                 WriteLiteral("Add Product for Sale!");
                 EndContext();
@@ -220,7 +220,7 @@ using StuffForSale;
             WriteLiteral("</td>\r\n\r\n                    <td>\r\n                        ");
             EndContext();
             BeginContext(2167, 237, false);
-            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("form", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "0fc17d8763b446a5a866c46e4c341ad7", async() => {
+            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("form", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "ad6a3b8b3a034b65ae5e8831c7e42054", async() => {
                 BeginContext(2264, 133, true);
                 WriteLiteral("\r\n                            <button class=\'btn\' type=\"submit\"><i class=\"fas fa-plus-square\"></i></button>\r\n                        ");
                 EndContext();
@@ -261,7 +261,7 @@ using StuffForSale;
             WriteLiteral("\r\n                    </td>\r\n                    <td>\r\n                        ");
             EndContext();
             BeginContext(2483, 241, false);
-            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("form", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "518d84b656c64b7989d038e59e125d75", async() => {
+            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("form", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "5a7839e6310247acaf4c3a3e6a252180", async() => {
                 BeginContext(2583, 134, true);
                 WriteLiteral("\r\n                            <button class=\'btn\' type=\"submit\"><i class=\"far fa-minus-square\"></i></button>\r\n                        ");
                 EndContext();
@@ -302,7 +302,7 @@ using StuffForSale;
             WriteLiteral("\r\n                    </td>\r\n                    <td>\r\n                        ");
             EndContext();
             BeginContext(2803, 235, false);
-            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("form", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "cd75934e196946f4892c90a8e264f1e3", async() => {
+            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("form", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "1ed1597ee9d64d64b23a04564b85cb03", async() => {
                 BeginContext(2903, 128, true);
                 WriteLiteral("\r\n                            <button class=\"btn\" type=\"submit\"><i class=\"fas fa-eraser\"></i></button>\r\n                        ");
                 EndContext();

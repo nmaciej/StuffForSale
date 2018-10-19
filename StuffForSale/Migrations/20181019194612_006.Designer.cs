@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using StuffForSale.Database;
 
 namespace StuffForSale.Migrations
 {
     [DbContext(typeof(EfcContext))]
-    partial class EfcContextModelSnapshot : ModelSnapshot
+    [Migration("20181019194612_006")]
+    partial class _006
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -222,19 +224,6 @@ namespace StuffForSale.Migrations
                     b.HasIndex("UserId");
 
                     b.ToTable("Products");
-
-                    b.HasData(
-                        new { ProductId = 1, DateAdded = new DateTime(2018, 10, 19, 22, 1, 44, 0, DateTimeKind.Unspecified), Description = "Advanced programming", Name = "ASP.NET Core MVC 2", Price = 119.99m, Quantity = 5, TagId = 103, UserId = "2ff1abb4-7cf1-461e-a1f0-c322fa09f73c" },
-                        new { ProductId = 2, DateAdded = new DateTime(2018, 10, 19, 22, 1, 44, 0, DateTimeKind.Unspecified), Description = "Stanisław Lem", Name = "Solaris", Price = 43.99m, Quantity = 2, TagId = 103, UserId = "2ff1abb4-7cf1-461e-a1f0-c322fa09f73c" },
-                        new { ProductId = 3, DateAdded = new DateTime(2018, 10, 19, 22, 1, 44, 0, DateTimeKind.Unspecified), Description = "Corolla", Name = "Toyota", Price = 1999.00m, Quantity = 1, TagId = 104, UserId = "2ff1abb4-7cf1-461e-a1f0-c322fa09f73c" },
-                        new { ProductId = 4, DateAdded = new DateTime(2018, 10, 19, 22, 1, 44, 0, DateTimeKind.Unspecified), Description = "Civic", Name = "Honda", Price = 2500.00m, Quantity = 1, TagId = 104, UserId = "2ff1abb4-7cf1-461e-a1f0-c322fa09f73c" },
-                        new { ProductId = 5, DateAdded = new DateTime(2018, 10, 19, 22, 1, 44, 0, DateTimeKind.Unspecified), Description = "Green", Name = "Sofa", Price = 99.00m, Quantity = 1, TagId = 107, UserId = "2ff1abb4-7cf1-461e-a1f0-c322fa09f73c" },
-                        new { ProductId = 6, DateAdded = new DateTime(2018, 10, 19, 22, 1, 44, 0, DateTimeKind.Unspecified), Description = "Python basics", Name = "Learn Python", Price = 35.00m, Quantity = 1, TagId = 103, UserId = "2ff1abb4-7cf1-461e-a1f0-c322fa09f73c" },
-                        new { ProductId = 7, DateAdded = new DateTime(2018, 10, 19, 22, 1, 44, 0, DateTimeKind.Unspecified), Description = "Python ML", Name = "Sklearn & Tensorflow", Price = 44.00m, Quantity = 1, TagId = 103, UserId = "2ff1abb4-7cf1-461e-a1f0-c322fa09f73c" },
-                        new { ProductId = 8, DateAdded = new DateTime(2018, 10, 19, 22, 1, 44, 0, DateTimeKind.Unspecified), Description = "Oak", Name = "Chair", Price = 1599.00m, Quantity = 1, TagId = 107, UserId = "b3d46ee7-2dac-48ea-9e05-98d76b506c91" },
-                        new { ProductId = 9, DateAdded = new DateTime(2018, 10, 19, 22, 1, 44, 0, DateTimeKind.Unspecified), Description = "BOSH", Name = "Drill", Price = 345.00m, Quantity = 1, TagId = 105, UserId = "a0340822-14f8-4566-b6ee-4e3ef5c78703" },
-                        new { ProductId = 10, DateAdded = new DateTime(2018, 10, 19, 22, 1, 44, 0, DateTimeKind.Unspecified), Description = "Flat", Name = "Screwdriver", Price = 15.00m, Quantity = 1, TagId = 105, UserId = "a0340822-14f8-4566-b6ee-4e3ef5c78703" }
-                    );
                 });
 
             modelBuilder.Entity("StuffForSale.Models.Tag", b =>
@@ -251,11 +240,8 @@ namespace StuffForSale.Migrations
                     b.ToTable("Tags");
 
                     b.HasData(
-                        new { TagId = 103, Name = "Books" },
-                        new { TagId = 104, Name = "Cars" },
-                        new { TagId = 105, Name = "Others" },
-                        new { TagId = 106, Name = "Clothes" },
-                        new { TagId = 107, Name = "Furniture" }
+                        new { TagId = 98, Name = "98" },
+                        new { TagId = 99, Name = "99" }
                     );
                 });
 
@@ -308,13 +294,6 @@ namespace StuffForSale.Migrations
                         .HasFilter("[NormalizedUserName] IS NOT NULL");
 
                     b.ToTable("AspNetUsers");
-
-                    b.HasData(
-                        new { Id = "2ff1abb4-7cf1-461e-a1f0-c322fa09f73c", AccessFailedCount = 0, ConcurrencyStamp = "ae5ebbc6-ba14-4132-8714-a9f6aca723be", Email = "nmaciej@protonmail.com", EmailConfirmed = true, LockoutEnabled = true, NormalizedEmail = "NMACIEJ@PROTONMAIL.COM", NormalizedUserName = "MACIEK", PasswordHash = "AQAAAAEAACcQAAAAELAzZ3tmJKhfsN/fhGiVPdOBk/eXlUAIHHcL7PCLAI1vnOMpxlEmSB35k55kZcGUeA==", PhoneNumberConfirmed = false, SecurityStamp = "XMYKPC2LMH5E6DBEY6DGSAWZZJ6NL6M2", TwoFactorEnabled = false, UserName = "Maciek" },
-                        new { Id = "a0340822-14f8-4566-b6ee-4e3ef5c78703", AccessFailedCount = 0, ConcurrencyStamp = "2b12c3c3-495c-41d1-b440-7d6128b8b8b8", Email = "tomek@gmail.com", EmailConfirmed = true, LockoutEnabled = true, NormalizedEmail = "TOMEK@GMAIL.COM", NormalizedUserName = "TOMEK", PasswordHash = "AQAAAAEAACcQAAAAEBV+zKkaD9R58syCgGx3mvRUzxt+hPywa9nTLpNNddanIa63J/QcH4K6UMOt/5txMQ==", PhoneNumberConfirmed = false, SecurityStamp = "OWUMF4V3ZJ2NYNXS4M5FNJNPPK6NOZ6U", TwoFactorEnabled = false, UserName = "Tomek" },
-                        new { Id = "b3d46ee7-2dac-48ea-9e05-98d76b506c91", AccessFailedCount = 0, ConcurrencyStamp = "3769e618-c6c9-49e0-81b8-6ec173dd44fa", Email = "magda@gmail.com", EmailConfirmed = true, LockoutEnabled = true, NormalizedEmail = "MAGDA@GMAIL.COM", NormalizedUserName = "MAGDA", PasswordHash = "AQAAAAEAACcQAAAAENyD3d41SivJb80HeW+AVkDZcY/d3WdNwJFCaj3c1BB4U+acGCjSd6aNN3sRJBUWFA==", PhoneNumberConfirmed = false, SecurityStamp = "KLPSNGMDE435QGKUUF7SSTPRG6OOYDXF", TwoFactorEnabled = false, UserName = "Magda" },
-                        new { Id = "e973450a-ae95-427a-8bf9-6eaa367bac15", AccessFailedCount = 0, ConcurrencyStamp = "6f5d76d0-33a6-4a30-a58d-5381e5e4003b", Email = "fleamarketstuffforsale@gmail.com", EmailConfirmed = true, LockoutEnabled = true, NormalizedEmail = "FLEAMARKETSTUFFFORSALE@GMAIL.COM", NormalizedUserName = "ADMIN", PasswordHash = "AQAAAAEAACcQAAAAEEKkaUCUXCB4DCuQJ3kw0fK/7wwZNYH0ZSo9fpoAO6B3r1R26XdrOfGh3Ons+oOrTQ==", PhoneNumberConfirmed = false, SecurityStamp = "OYG5PPEIRBJDZISCE62VMDZXOBYXM5YL", TwoFactorEnabled = false, UserName = "Admin" }
-                    );
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>

@@ -52,7 +52,9 @@
         var id = $(this).parent().parent().attr('id');
         var products = $(this).parent().parent().find('.products').text();
 
-        if (products === 0) {
+        console.log(products);
+
+        if (products== 0 || products === []) {
             $.ajax({
                 url: "https://localhost:5001/Admin/RemoveTag",
                 data: { id: id },
