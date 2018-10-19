@@ -1,8 +1,6 @@
 ﻿$(document).ready(function () {
 
-    loadOrders(null);
-
-    loadTagBadges();
+    loadOrders(null, 1);
 
     var userName;
     $.ajax({
@@ -13,15 +11,17 @@
         userName = result;
     });
 
-    function loadOrders(tag) {
+    function loadOrders(tag, currPage) {
         $.ajax({
             url: "https://localhost:5001/Product/GetAll/",
-            data: { tag: tag },
+            data: { tag: tag, productPage: currPage },
             type: "POST",
             dataType: "json"
         }).done(function (result) {
 
             console.log(result);
+            pagination(result);
+            loadTagBadges(result);
 
             var table = $('#table_form_1').clone();
             var tbody = table.find('tbody');
@@ -34,28 +34,27 @@
 
             table.find('tbody tr:not(.data_tr)').each(function () { $(this).remove(); });
 
-            for (var i = 0; i < result.length; i++) {
+            for (var i = 0; i < result.ProductList.length; i++) {
                 tr.removeClass('d-none');
                 var record = tr.clone();
                 tr.addClass('d-none');
 
                 record.removeClass('data_tr');
-                record.find('.id').text(i + 1);
-                record.find('.name').text(result[i].Name);
-                record.find('.description').text(result[i].Description);
-                record.find('.tag').text(result[i].Tag.Name);
-                record.find('.price').text(result[i].Price);
-                record.find('.quantity').text(result[i].Quantity);
-                record.find('.seller').text(result[i].User.UserName);
-                record.find('.date').text(result[i].DateAdded);
+                record.find('.name').text(result.ProductList[i].Name);
+                record.find('.description').text(result.ProductList[i].Description);
+                record.find('.tag').text(result.ProductList[i].Tag.Name);
+                record.find('.price').text(result.ProductList[i].Price);
+                record.find('.quantity').text(result.ProductList[i].Quantity);
+                record.find('.seller').text(result.ProductList[i].User.UserName);
+                record.find('.date').text(result.ProductList[i].DateAdded);
 
-                record.attr('data', result[i].ProductId);
+                record.attr('data', result.ProductList[i].ProductId);
 
                 var buttonRec = record.find('.b');
 
                 if (userName !== 'none') {
 
-                    if (userName === result[i].User.UserName) {
+                    if (userName === result.ProductList[i].User.UserName) {
                         buttonRec.find('button').append("<i class=\"far fa-times-circle fa-2x\"></i>");
                         buttonRec.find('button').addClass('btn-warning');
 
@@ -118,19 +117,22 @@
             }
             div.append(table);
 
+
+
         }).fail(function (xhr, status, err) {
 
         });
     }
 
-    function loadTagBadges() {
-
+    function loadTagBadges(paging) {
 
         $.ajax({
             url: "https://localhost:5001/Admin/GetTags",
             data: {},
             type: "POST"
         }).done(function (result) {
+
+            $('#tags').children().remove();
 
             var badLay = $('#badge_layout').clone();
             badLay.removeAttr('id');
@@ -143,12 +145,19 @@
                 var badTmp = badLay.clone();
                 badTmp.find('button').text(result[i].Name);
 
+                if (result[i].Name == paging.Tag) {
+                    badTmp.find('button').removeClass('btn-outline-primary');
+                    badTmp.find('button').addClass('btn-primary');
+                }
+
                 badTmp.click(function () {
 
                     var tag = $.trim($(this).text());
                     console.log(tag);
 
-                    loadOrders(tag);
+                    loadOrders(tag, 1);
+
+
 
                 });
 
@@ -160,5 +169,37 @@
         });
 
 
+    }
+
+    function pagination(result) {
+
+        console.log(result.Tag);
+
+        var div = $('#PagingDiv');
+        div.children().remove();
+
+        var aaa = $('#Page').clone();
+        aaa.removeClass('d-none');
+        aaa.removeAttr('id');
+
+
+        for (var i = 1; i <= result.Pages; i++) {
+            var tmp = aaa.clone();
+            tmp.find('a').text(i);
+
+            if (i === result.CurrentPage) {
+                tmp.removeClass('btn-outline-primary');
+                tmp.addClass('btn-primary');
+            }
+
+            tmp.attr('data', i);
+
+            tmp.click(function () {
+                console.log(result.Tag);
+                loadOrders(result.Tag, $(this).attr('data'));
+            });
+
+            div.append(tmp);
+        }
     }
 });

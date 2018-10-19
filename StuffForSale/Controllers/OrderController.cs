@@ -13,9 +13,11 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Query.Internal;
 using Microsoft.EntityFrameworkCore.Storage;
+using Microsoft.Extensions.Configuration;
 using StuffForSale.Infrastructure;
 using StuffForSale.Models;
 using StuffForSale.ViewModels;
+
 
 namespace StuffForSale.Controllers
 {
@@ -25,12 +27,15 @@ namespace StuffForSale.Controllers
     private readonly Database.EfcContext _dbContext;
     private readonly UserManager<User> _userManager;
 
+    protected IConfiguration Configuration { get; set; }
+
     private object _lock = new object();
 
-    public OrderController(Database.EfcContext context, UserManager<User> UserManager)
+    public OrderController(Database.EfcContext context, UserManager<User> UserManager, IConfiguration config)
     {
       _dbContext = context;
       _userManager = UserManager;
+      Configuration = config;
     }
 
     [HttpGet]
@@ -158,7 +163,7 @@ namespace StuffForSale.Controllers
             //Send out emails
             var userSeller = _dbContext.Users.SingleOrDefault(z => z.UserName == seller);
             var userBuyer = _dbContext.Users.SingleOrDefault(x => x.Id == GetUserId());
-            var mailing = new Mail(userBuyer, userSeller, tmpOrder, OrderStateEnum.Active, cartBySeller, null);
+            var mailing = new Mail(userBuyer, userSeller, tmpOrder, OrderStateEnum.Active, Configuration, cartBySeller, null);
             mailing.SendEmail();
           }
           //Clear Cart Session
@@ -168,7 +173,7 @@ namespace StuffForSale.Controllers
 
           transaction.Commit();
         }
-        catch (Exception e)
+        catch (Exception)
         {
           transaction.Rollback();
           return RedirectToAction("Index", "Home");
@@ -250,15 +255,13 @@ namespace StuffForSale.Controllers
             var userSeller = _dbContext.Users.SingleOrDefault(z => z.Id == order.SellerId);
             var userBuyer = _dbContext.Users.SingleOrDefault(z => z.Id == order.BuyerId);
 
-            var mailing = new Mail(userBuyer, userSeller, order, OrderStateEnum.Canceled, null, orderDetails);
+            var mailing = new Mail(userBuyer, userSeller, order, OrderStateEnum.Canceled, Configuration, null, orderDetails);
             mailing.SendEmail();
-
+            transaction.Commit();
             return Ok();
           }
-
-          transaction.Commit();
         }
-        catch (Exception e)
+        catch (Exception)
         {
           transaction.Rollback();
           return RedirectToAction("Index", "UserProfile");

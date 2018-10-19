@@ -5,74 +5,76 @@
     Layout = "_Layout";
 }
 
+
+
 <table class='table table-sm'>
     <thead>
-    <tr>
-        <th scope="col">Id</th>
-        <th scope="col">Name</th>
-        <th scope="col">Description</th>
-        <th scope="col">Quantity</th>
-        <th scope="col">Unit Price</th>
-        <th scope="col">Price</th>
-        <th scope="col"></th>
-        <th scope="col"></th>
-        <th scope="col"></th>
-    </tr>
+        <tr>
+            <th scope="col">Id</th>
+            <th scope="col">Name</th>
+            <th scope="col">Description</th>
+            <th scope="col">Quantity</th>
+            <th scope="col">Unit Price</th>
+            <th scope="col">Price</th>
+            <th scope="col"></th>
+            <th scope="col"></th>
+            <th scope="col"></th>
+        </tr>
     </thead>
     <tbody>
-    @{
-        int i = 0;
-        foreach (var item in Model.CartLinesCollection)
-        {
-            i = i + 1;
+        @{
+            int i = 0;
+            foreach (var item in Model.CartLinesCollection)
+            {
+                i = i + 1;
+                <tr>
+                    <th scope="row">@i</th>
+                    <td>@item.Product.Name</td>
+                    <td>@item.Product.Description</td>
+                    <td>@item.Quantity</td>
+                    <td>@item.Product.Price</td>
+                    <td>@item.GetPrice()</td>
+                    <td>
+                        <form asp-route-id="@item.Product.ProductId" asp-controller="Cart" asp-action="AddToCart" method="post">
+                            <button class='btn' type="submit"><i class="fas fa-plus-square"></i></button>
+                        </form>
+                    </td>
+                    <td>
+                        <form asp-route-id="@item.Product.ProductId" asp-controller="Cart" asp-action="RemoveFromCart" method="post">
+                            <button class='btn' type="submit"><i class="far fa-minus-square"></i></button>
+                        </form>
+                    </td>
+                    <td>
+                        <form asp-route-id="@item.Product.ProductId" asp-controller="Cart" asp-action="RemoveLine" method="post">
+                            <button class="btn" type="submit"><i class="fas fa-eraser"></i></button>
+                        </form>
+                    </td>
+
+                </tr>
+            }
             <tr>
-                <th  scope="row">@i</th>
-                <td>@item.Product.Name</td>
-                <td>@item.Product.Description</td>
-                <td>@item.Quantity</td>
-                <td>@item.Product.Price</td>
-                <td>@item.GetPrice()</td>
-                <td>
-                    <form asp-route-id="@item.Product.ProductId" asp-controller="Cart" asp-action="AddToCart" method="post">
-                        <button class='btn' type="submit"><i class="fas fa-plus-square"></i></button>
-                    </form>
-                </td>
-                <td>
-                    <form asp-route-id="@item.Product.ProductId" asp-controller="Cart" asp-action="RemoveFromCart" method="post">
-                        <button class='btn' type="submit"><i class="far fa-minus-square"></i></button>
-                    </form>
-                </td>
-                <td>
-                    <form asp-route-id="@item.Product.ProductId" asp-controller="Cart" asp-action="RemoveLine" method="post">
-                        <button class="btn" type="submit"><i class="fas fa-eraser"></i></button>
-                    </form>
-                </td>
+                <td colspan="4"></td>
+                <th>Quantity Total</th>
+                <th>Price Total</th>
+                <td colspan="3"></td>
 
             </tr>
+            <tr>
+                <td colspan="4"></td>
+                <th>@Model.TotalQuantities()</th>
+                <th>@Model.TotalValues()</th>
+                <td colspan="3"></td>
+            </tr>
         }
-        <tr>
-            <td colspan="4"></td>
-            <th>Quantity Total</th>
-            <th>Price Total</th>
-            <td colspan="3"></td>
-
-        </tr>
-        <tr>
-            <td colspan="4"></td>
-            <th>@Model.TotalQuantities()</th>
-            <th>@Model.TotalValues()</th>
-            <td colspan="3"></td>
-        </tr>
-    }
     </tbody>
 </table>
 
 <div class="container">
     <div class='row'>
-        <div class="col-md-6"></div>
-        <div class="col-md-6">
+        <div class="col-md-5"></div>
+        <div class="col-md-7">
             <a class="btn btn-outline-success" asp-controller="Home" asp-action="Index">Continue Shopping</a>
-            
+
             @if (@Model.TotalQuantities() != 0)
             {
                 <a class="btn btn-outline-info" asp-controller="Order" asp-action="Checkout">Checkout</a>
@@ -81,4 +83,9 @@
             <a class="btn btn-outline-warning" asp-controller="Cart" asp-action="ClearCart">Clear Cart</a>
         </div>
     </div>
+    <div class="row">
+        <img src="images/cart.jpg" style="width: 40%; height: 40%" class="rounded" />
+
+    </div>
 </div>
+

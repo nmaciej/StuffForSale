@@ -5,19 +5,20 @@ using System.Linq;
 using System.Net.Mail;
 using System.Text;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.Extensions.Configuration;
 using StuffForSale.ViewModels;
 
 namespace StuffForSale.Models
 {
   public class Mail
   {
-    static readonly string fromAddress = "fleamarketstuffforsale@gmail.com";
-    static readonly string password = "Asdfgh!1";
     static int portNumber = 587;
     static bool enableSSL = true;
     static string smtpAddress = "smtp.gmail.com";
+    static IConfiguration Configuration { get; set; }
 
-    public Mail(User buyer, User seller, Order order, OrderStateEnum state, IEnumerable<OrderDetailSummary> cart = null, List<OrderDetail> orderDetails = null)
+    public Mail(User buyer, User seller, Order order, OrderStateEnum state, IConfiguration config, IEnumerable<OrderDetailSummary> cart = null, List<OrderDetail> orderDetails = null)
     {
       Buyer = buyer;
       Seller = seller;
@@ -25,6 +26,7 @@ namespace StuffForSale.Models
       State = state;
       Cart = cart;
       OrderDetailsList = orderDetails;
+      Configuration = config;
     }
 
     public User Buyer;
@@ -38,8 +40,9 @@ namespace StuffForSale.Models
     {
       try
       {
-        MailAddress to = new MailAddress(fromAddress);
-        MailAddress from = new MailAddress(fromAddress);
+
+        MailAddress to = new MailAddress(Configuration["AdminEmail"]);
+        MailAddress from = new MailAddress(Configuration["AdminEmail"]);
         MailMessage mail = new MailMessage(from, to);
 
         switch (State)
@@ -56,17 +59,17 @@ namespace StuffForSale.Models
         }
 
         mail.Body = BuildMessage(State);
-        mail.To.Add(fromAddress);
+        mail.To.Add(Configuration["AdminEmail"]);
 
         SmtpClient smtp = new SmtpClient();
         smtp.Host = smtpAddress;
         smtp.Port = portNumber;
-        smtp.Credentials = new System.Net.NetworkCredential(fromAddress, password);
+        smtp.Credentials = new System.Net.NetworkCredential(Configuration["AdminEmail"], Configuration["AdminPassword"]);
         smtp.EnableSsl = enableSSL;
         smtp.Send(mail);
         return true;
       }
-      catch (Exception e)
+      catch (Exception)
       {
         return false;
       }

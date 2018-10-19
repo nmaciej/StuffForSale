@@ -21,7 +21,7 @@ namespace StuffForSale.Controllers
     private readonly Database.EfcContext _dbContext;
     private readonly UserManager<User> _userManager;
 
-    public int PageSize = 5;
+    public int PageSize = 3;
 
     public ProductController(Database.EfcContext context, UserManager<User> userManager)
     {
@@ -73,7 +73,7 @@ namespace StuffForSale.Controllers
           }
           transaction.Commit();
         }
-        catch (Exception e)
+        catch (Exception)
         {
           transaction.Rollback();
           return RedirectToAction("Index", "UserProfile");
@@ -100,7 +100,7 @@ namespace StuffForSale.Controllers
           }
           transaction.Commit();
         }
-        catch (Exception e)
+        catch (Exception)
         {
           transaction.Rollback();
           return RedirectToAction("Index", "UserProfile");
@@ -127,7 +127,7 @@ namespace StuffForSale.Controllers
           }
           transaction.Commit();
         }
-        catch (Exception e)
+        catch (Exception)
         {
           transaction.Rollback();
           return RedirectToAction("Index", "UserProfile");
@@ -137,25 +137,56 @@ namespace StuffForSale.Controllers
     }
 
     [HttpPost]
-    public IActionResult GetAll(string tag = null)
+    public IActionResult GetAll(string tag = null, int productPage = 1)
     {
       var productList = new List<Product>();
+      int ItemsCount;
       if (tag == null)
       {
-        productList = _dbContext.Products.Where(x => x.Quantity != 0).OrderBy(x => x.Name).Include(x => x.User).Include(y => y.Tag).ToList();
+        var tmp = _dbContext.Products.Where(x => x.Quantity != 0)
+          .OrderBy(x => x.Name)
+          .Include(x => x.User)
+          .Include(y => y.Tag)
+          .ToList();
+
+        ItemsCount = tmp.Count;
+
+        productList = tmp.Skip((productPage - 1) * PageSize).Take(PageSize).ToList();
+
       }
       else
       {
-        var tmp = _dbContext.Products.Where(x => x.Quantity != 0).OrderBy(x => x.Name).Include(x => x.User).Include(y => y.Tag).ToList();
-        productList = tmp.Where(x => x.Tag.Name == tag).ToList();
+        var tmp = _dbContext.Products.Where(x => x.Quantity != 0).OrderBy(x => x.Name).Include(x => x.User).Include(y => y.Tag).Where(x => x.Tag.Name == tag).ToList();
+        
+        ItemsCount = tmp.Count;
+
+        productList = tmp.Skip((productPage - 1) * PageSize).Take(PageSize).ToList();
       }
 
+      var pages = 0;
+      if (ItemsCount % PageSize == 0)
+      {
+        pages = (int)ItemsCount / PageSize;
+      }
+      else
+      {
+        pages = (int)ItemsCount / PageSize + 1;
+      }
 
-      return Json(productList, new JsonSerializerSettings()
+      var result = new ProductGetAll()
+      {
+        ProductList = productList,
+        CurrentPage = productPage,
+        Items = ItemsCount,
+        Pages = pages,
+        PerPage = PageSize,
+        Tag = tag
+      };
+
+      return Json(result, new JsonSerializerSettings()
       {
         ReferenceLoopHandling = ReferenceLoopHandling.Ignore
       });
-
     }
 
     private string GetUserId()

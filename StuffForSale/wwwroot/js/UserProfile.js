@@ -47,6 +47,7 @@
                 record.attr('order_data', result[i].OrderId);
 
                 var btn = record.find('.status button');
+                btn.removeClass('d-none');
 
                 switch (result[i].InProcess) {
                     case 0:

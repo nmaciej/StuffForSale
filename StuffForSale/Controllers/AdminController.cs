@@ -73,7 +73,7 @@ namespace StuffForSale.Controllers
           }
           transaction.Commit();
         }
-        catch (Exception e)
+        catch (Exception)
         {
           transaction.Rollback();
           return RedirectToAction("AdminPanel", "Admin");

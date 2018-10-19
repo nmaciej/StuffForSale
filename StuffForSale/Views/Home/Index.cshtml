@@ -1,19 +1,16 @@
-﻿@*<script type="text/javascript" src="/js/index_page.js"></script>*@
-
-@using Microsoft.AspNetCore.Http
-@model IEnumerable<StuffForSale.Models.Product>
+﻿@using Microsoft.AspNetCore.Http
 
 <script type="text/javascript" src="js/Home.js"></script>
 
 <div class="container">
     <br />
     <div class="row">
-        <h2>Select tag to filter results!</h2>
-        <div id='badge_layout' class="d-none">
+
+        <div id='badge_layout' class="d-none" style="display: block">
             <button type="button" class="btn btn-outline-primary">Primary</button>
         </div>
 
-        <div id="tags" class="col-md-12">
+        <div id="tags" class="col-md-12" style="text-align: center">
 
         </div>
     </div>
@@ -24,7 +21,6 @@
         <table id="table_form_1" class='table table-hover d-none'>
             <thead class="table-dark col-11">
                 <tr>
-                    <th scope="col" class='align-middle text-center'>Id</th>
                     <th scope="col" class='align-middle text-center'>Picture</th>
                     <th scope="col" class='align-middle text-center'>Name</th>
                     <th scope="col" class='align-middle text-center'>Description</th>
@@ -38,7 +34,6 @@
             </thead>
             <tbody>
                 <tr class="data_tr d-none">
-                    <th scope="row" class="id align-middle"></th>
                     <td><img src="images/logo.jpg" style="width:100px;height:100px;" class="rounded" /></td>
                     <td class="name align-middle"></td>
                     <td class="description align-middle"></td>
@@ -56,7 +51,15 @@
         </table>
 
     </div>
+    <br/>
+    
+    <div id="PagingDiv" class='row' style="text-align: center">
 
+    </div>
+    
+    <div id="Page" class="d-none" style="display: block">
+        <a class="btn btn-outline-primary">Test</a>
+    </div>
 </div>
 
 
