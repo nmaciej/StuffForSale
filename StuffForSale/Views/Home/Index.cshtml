@@ -2,7 +2,7 @@
 
 <script type="text/javascript" src="js/Home.js"></script>
 
-<div class="container">
+<div>
     <br />
     <div class="row">
 
@@ -15,33 +15,38 @@
         </div>
     </div>
     <br />
-    <div class="row">
-        <div id="index_table"></div>
+
+    <div class="container-fluid">
+        <div id="index_table" class="col-sm-12" style="height: 370px"></div>
 
         <table id="table_form_1" class='table table-hover d-none'>
             <thead class="table-dark col-11">
                 <tr>
-                    <th scope="col" class='align-middle text-center'>Picture</th>
-                    <th scope="col" class='align-middle text-center'>Name</th>
-                    <th scope="col" class='align-middle text-center'>Description</th>
-                    <th scope="col" class='align-middle text-center'>Tag</th>
-                    <th scope="col" class='align-middle text-center'>Price</th>
-                    <th scope="col" class='align-middle text-center'>Quantity</th>
-                    <th scope="col" class='align-middle text-center'>Seller</th>
-                    <th scope="col" class='align-middle text-center'>Date Added</th>
-                    <th scope="col" class='align-middle text-center'></th>
+                    <th scope="col" class='align-middle text-center col-sm-1'>Picture</th>
+                    <th scope="col" class='align-middle text-center col-sm-1'>Name</th>
+                    <th scope="col" class='align-middle text-center col-sm-1'>Description</th>
+                    <th scope="col" class='align-middle text-center col-sm-1'>Tag</th>
+                    <th scope="col" class='align-middle text-center col-sm-1'>Price</th>
+                    <th scope="col" class='align-middle text-center col-sm-1'>Quantity</th>
+                    <th scope="col" class='align-middle text-center col-sm-1'>Seller</th>
+                    @*<th scope="col" class='align-middle text-center'>Date Added</th>*@
+                    <th scope="col" class='align-middle text-center col-sm-5'></th>
                 </tr>
             </thead>
             <tbody>
                 <tr class="data_tr d-none">
-                    <td><img src="images/logo.jpg" style="width:100px;height:100px;" class="rounded" /></td>
-                    <td class="name align-middle"></td>
-                    <td class="description align-middle"></td>
-                    <td class="tag align-middle"></td>
-                    <td class="price align-middle"></td>
-                    <td class="quantity align-middle text-center"></td>
-                    <td class="seller align-middle"></td>
-                    <td class="date align-middle"></td>
+                    <td class=" col-sm-1">
+                        <img src="https://via.placeholder.com/80x80" />
+
+                        @*<img src="images/logo.jpg" style="width: 100px; height: 100px;" class="rounded"/>*@
+                    </td>
+                    <td class="name align-middle col-sm-1"></td>
+                    <td class="description align-middle col-sm-1"></td>
+                    <td class="tag align-middle col-sm-1"></td>
+                    <td class="price align-middle col-sm-1"></td>
+                    <td class="quantity align-middle text-center col-sm-1"></td>
+                    <td class="seller align-middle col-sm-1"></td>
+                    @*<td class="date align-middle"></td>*@
                     <td class="b align-middle">
                         <button class="btn"></button>
                         @*Add to cart / your item*@
@@ -51,15 +56,18 @@
         </table>
 
     </div>
-    <br/>
-    
-    <div id="PagingDiv" class='row' style="text-align: center">
+    <br />
+    <div align="center">
+        <div id="PagingDiv" style="display: inline-block">
 
+        </div>
     </div>
-    
-    <div id="Page" class="d-none" style="display: block">
+
+
+    <div id="Page" class="d-none" style="display: inline-block">
         <a class="btn btn-outline-primary">Test</a>
     </div>
+    <br />
 </div>
 
 

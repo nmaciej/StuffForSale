@@ -11,68 +11,83 @@
 
 <br />
 
-<form asp-controller="Product" asp-action="Add" asp-antiforgery="true" method="post">
+<div class="row">
 
-    <div class="form-group">
-        <label asp-for="Product.Name">Name</label>
-        <div>
-            <input asp-for="Product.Name" type="text" />
-        </div>
+    <div class="col-md-5" align="center">
+        <form asp-controller="Product" asp-action="Add" asp-antiforgery="true" method="post">
+
+            <div class="form-group">
+                <label asp-for="Product.Name">Name</label>
+                <div>
+                    <input asp-for="Product.Name" type="text" />
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="Product.Description">Description</label>
+                <div>
+                    <input asp-for="Product.Description" type="text" />
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="Product.TagId">Tag</label>
+                <div>
+                    <select asp-for="Product.TagId">
+                        @{
+                            foreach (var item in Model.Tags)
+                            {
+                                <option value="@item.Key">@item.Value</option>
+                            }
+                        }
+                    </select>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="Product.Quantity">Quantity</label>
+                <div>
+                    <input asp-for="Product.Quantity" type="number" min="0" step="1" max="99" />
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="Product.Price">Price</label>
+                <div>
+                    <input asp-for="Product.Price" type="text" min="0" step="any" />
+                </div>
+            </div>
+
+            <div class="form-group">
+                <div>
+                    <input asp-for="Product.UserId" value="@Model.Product.UserId" type="hidden" />
+                </div>
+            </div>
+
+            <div class="form-group">
+                <div>
+                    <input asp-for="Product.DateAdded" value="@DateTime.Now" type="hidden" readonly="" />
+                </div>
+            </div>
+
+            <div>
+                <button type="submit" class="btn btn-primary">Add</button>
+            </div>
+
+            <div>
+                <div asp-validation-summary="All"></div>
+            </div>
+
+        </form>
+
     </div>
+    <div class="col-md-7" align="justify">
+        <br />
+        <br />
+        <br />
+        <img src="/images/prod.jpg" style="height: 250px">
 
-    <div class="form-group">
-        <label asp-for="Product.Description">Description</label>
-        <div>
-            <input asp-for="Product.Description" type="text" />
-        </div>
     </div>
+</div>
 
-    <div class="form-group">
-        <label asp-for="Product.TagId">Tag</label>
-        <div>
-            <select asp-for="Product.TagId">
-                @{
-                    foreach (var item in Model.Tags)
-                    {
-                        <option value="@item.Key">@item.Value</option>
-                    }
-                }
-            </select>
-        </div>
-    </div>
 
-    <div class="form-group">
-        <label asp-for="Product.Quantity">Quantity</label>
-        <div>
-            <input asp-for="Product.Quantity" type="number" min="0" step="1" max="99" />
-        </div>
-    </div>
-
-    <div class="form-group">
-        <label asp-for="Product.Price">Price</label>
-        <div>
-            <input asp-for="Product.Price" type="text" min="0" step="any" />
-        </div>
-    </div>
-
-    <div class="form-group">
-        <div>
-            <input asp-for="Product.UserId" value="@Model.Product.UserId" type="hidden" />
-        </div>
-    </div>
-
-    <div class="form-group">
-        <div>
-            <input asp-for="Product.DateAdded" value="@DateTime.Now" type="datetime" readonly="" />
-        </div>
-    </div>
-
-    <div>
-        <button type="submit" class="btn btn-primary">Submit</button>
-    </div>
-
-    <div>
-        <div asp-validation-summary="All"></div>
-    </div>
-
-</form>

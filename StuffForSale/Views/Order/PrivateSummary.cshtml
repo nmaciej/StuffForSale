@@ -24,7 +24,7 @@
 
     <div class="container">
         <div class="row">
-            <div class="col-md-4">
+            <div class="col-md-6" align="center">
 
                 <div class="form-group">
                     <div>
@@ -82,8 +82,9 @@
                 <div>
                     <button type="submit" class="btn btn-primary">Confirm order!</button>
                 </div>
+                <br/>
             </div>
-            <div class="col-md-4">
+            <div class="col-md-6" align="center">
 
                 @{
                     var sellers = Model.OrderDetailsSummaryList.GroupBy(x => x.SellerId).Select(y => y.First());

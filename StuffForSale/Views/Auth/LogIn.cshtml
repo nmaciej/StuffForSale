@@ -6,7 +6,7 @@
 
 <div class="row">
     
-    <div class="col-md-3">
+    <div class="col-md-6" align="center">
         <br/>
         <form asp-controller="Auth" asp-action="LogIn" asp-antiforgery="true" method="post">
             <div class="form-group">
@@ -33,17 +33,18 @@
             <div asp-validation-summary="All"></div>
 
             <div>
-                <button type="submit" class="btn btn-success">Log In</button>
+                <button type="submit" class="btn btn-primary">Log In</button>
             </div>
 
         </form>
-
+        <br/>
     </div>
 
-    <div class="col-md-9">
+    <div class="col-md-6" align="center">
         <br/><br/><br/>
-        <img src="/images/login.jpg" style="width: 60%; height: 60%"/>
+        <img src="/images/login.jpg" style="width: 300px"/>
     </div>
+    <br/>
     
     
 

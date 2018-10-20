@@ -55,7 +55,7 @@
                 if (userName !== 'none') {
 
                     if (userName === result.ProductList[i].User.UserName) {
-                        buttonRec.find('button').append("<i class=\"far fa-times-circle fa-2x\"></i>");
+                        buttonRec.find('button').append("<i class=\"far fa-times-circle fa-1x\"></i>");
                         buttonRec.find('button').addClass('btn-warning');
 
                         buttonRec.click(function () {
@@ -63,7 +63,7 @@
                         });
 
                     } else {
-                        buttonRec.find('button').append("<i class=\"fas fa-cart-plus fa-2x\">");
+                        buttonRec.find('button').append("<i class=\"fas fa-cart-plus fa-1x\">");
                         buttonRec.find('button').addClass('btn-success');
 
                         console.log($(this).parent().attr('data'));

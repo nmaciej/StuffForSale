@@ -73,6 +73,7 @@
     <div class='row'>
         <div class="col-md-5"></div>
         <div class="col-md-7">
+            <br/>
             <a class="btn btn-outline-success" asp-controller="Home" asp-action="Index">Continue Shopping</a>
 
             @if (@Model.TotalQuantities() != 0)
@@ -83,9 +84,11 @@
             <a class="btn btn-outline-warning" asp-controller="Cart" asp-action="ClearCart">Clear Cart</a>
         </div>
     </div>
-    <div class="row">
-        <img src="images/cart.jpg" style="width: 40%; height: 40%" class="rounded" />
-
+    <div align="center">
+        <br/>
+        @*<img src="images/cart.jpg" style="width: 40%; height: 40%" class="rounded"/>*@
+        <br/>
     </div>
+    <br/>
 </div>
 
